@@ -6,13 +6,8 @@ import { AsyncStorageExample } from '../AsyncStorageExample';
 import LogoSrc from '../logo.png';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../api/auth';
-import restApi from '../api/restAPI';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { testAxios, testUseReactQuery } from '../api/react-queryAPI';
-import { setSignUpInfo, signUpAxios } from '@kbant/app/src/api/restAPI';
+import { setSignInInfo, signInAxios } from '../api/restAPI';
+import { QueryClient, useMutation } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
@@ -21,7 +16,7 @@ export default function Index({}) {
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
   //const { mutate, isLoading, isError, error, isSuccess }
-  const loginMutation = useMutation(['loginMutation'], signUpAxios);
+  const loginMutation = useMutation(['loginMutation'], signInAxios);
 
   const signUp = async () => {
     navigation.navigate('SignUp');
@@ -30,7 +25,7 @@ export default function Index({}) {
 
   const signIn = () => {
     //const result = auth(id, password);
-    const result = setSignUpInfo(id, password);
+    const result = setSignInInfo(id, password);
     let signInId;
 
     if (result._j === true) {
@@ -41,17 +36,21 @@ export default function Index({}) {
       { id, password },
       {
         onSuccess: (data, variables, context) => {
+          console.log(data);
+          console.log(context);
           console.log('variables ', variables);
           //navigation.setParams({ signInId: variables.id });
           signInId = variables.id;
-          Alert.alert('Login Success', 'OK', [
-            {
-              onPress: () => navigation.navigate('SignIn', { id: signInId }),
-            },
-          ]);
-        },
-        onError: (data, variables, context) => {
-          Alert.alert('Login Failed');
+
+          if (data == 200) {
+            Alert.alert('Login Success', 'OK', [
+              {
+                onPress: () => navigation.navigate('SignIn', { id: signInId }),
+              },
+            ]);
+          } else {
+            Alert.alert('Login Failed');
+          }
         },
       },
     );
