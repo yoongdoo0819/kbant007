@@ -34,17 +34,21 @@ export default function SignUp({}) {
       { id, password },
       {
         onSuccess: (data, variables, context) => {
-          console.log('variables ', variables);
           //navigation.setParams({ signInId: variables.id });
-          signInId = variables.id;
-          Alert.alert('SignUp Success', 'OK', [
-            {
-              onPress: () => navigation.navigate('Index'),
-            },
-          ]);
-        },
-        onError: (data, variables, context) => {
-          Alert.alert('SignUp Failed');
+          console.log(data);
+          console.log(context);
+          console.log('variables ', variables);
+
+          if (data == 200) {
+            signInId = variables.id;
+            Alert.alert('SignUp Success', 'OK', [
+              {
+                onPress: () => navigation.navigate('Index'),
+              },
+            ]);
+          } else {
+            Alert.alert('SignUp Failed');
+          }
         },
       },
     );
