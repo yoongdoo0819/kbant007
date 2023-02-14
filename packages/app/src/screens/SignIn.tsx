@@ -2,29 +2,23 @@ import { StyleSheet } from 'react-native';
 import { View, Text } from 'react-native';
 import React from 'react';
 import MyInputFloatingActionButton from '../../../storybook/stories/components/InputFloatingActionButton/MyInputFloatingActionButton';
-import { testUseReactQuery } from '../api/react-queryAPI';
-import { isDev } from '../config';
-import { testUseMutation } from '../api/mutateAPI';
+import { queryMemberReactQuery } from '../api/restAPI';
+import { useNavigation } from '@react-navigation/native';
 
-export default function SignIn({}) {
-  const { data } = testUseReactQuery();
+export default function SignIn({ route }) {
+  //const { data } = queryMemberReactQuery('ID');
+  const navigation = useNavigation();
+  //const signInState = navigation.console.log('>> ', signInState);
 
-  if (data) {
-    return (
-      <View style={styles.container}>
-        <Text>{data.id}</Text>
-        <Text>{data.password}</Text>
-        <MyInputFloatingActionButton></MyInputFloatingActionButton>
-      </View>
-    );
-  } else {
-    return (
-      <View style={styles.container}>
-        <Text>None</Text>
-        <MyInputFloatingActionButton></MyInputFloatingActionButton>
-      </View>
-    );
-  }
+  const { id } = route.params;
+  console.log('login success : ', { id });
+
+  return (
+    <View style={styles.container}>
+      <Text>{id}</Text>
+      <MyInputFloatingActionButton></MyInputFloatingActionButton>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

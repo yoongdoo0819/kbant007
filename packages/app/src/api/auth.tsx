@@ -10,3 +10,22 @@ export const auth = (id: string, password: string) => {
     }
   });
 };
+
+// const queryfetch = useQuery('temp_query', restApi, {
+//   onSuccess: data => {
+//     console.log(data);
+//   },
+//   staleTime: 10000,
+// });
+
+// export default queryfetch;
+
+// const queryfetch = () => {
+//   return useQuery('rest', restApi);
+//   //   , {
+//   //     onSuccess: data => {
+//   //       console.log(data);
+//   //     },
+//   //     //staleTime: 10000,
+//   //   });
+// };

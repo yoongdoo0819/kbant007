@@ -28,6 +28,6 @@ export const testAxios = async () => {
 
 export const testUseReactQuery = () => {
   const { data } = useQuery(['test'], testAxios);
-  console.log({ data });
+  console.log('data : ', { data });
   return { data };
 };

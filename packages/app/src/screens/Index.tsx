@@ -12,7 +12,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { testAxios, testUseReactQuery } from '../api/react-queryAPI';
-import { handleSubmit, loginMutation, testAxios2, testUseMutation, useMutationHandler } from '../api/mutateAPI';
+import {
+  handleSubmit,
+  loginMutation,
+  setSignUpInfo,
+  signUpAxios,
+  testUseMutation,
+  useMutationHandler,
+} from '../api/mutateAPI';
 
 const queryClient = new QueryClient();
 
@@ -20,28 +27,42 @@ export default function Index({}) {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
-  const loginMutation = useMutation(['test'], testAxios2);
+  //const { mutate, isLoading, isError, error, isSuccess }
+  const loginMutation = useMutation(['loginMutation'], signUpAxios);
 
-  const signUp = () => {
+  const signUp = async () => {
     navigation.navigate('SignUp');
     //testUseReactQuery();
     restApi();
   };
 
   const signIn = () => {
-    const result = auth(id, password);
-    loginMutation.mutate();
+    //const result = auth(id, password);
+    const result = setSignUpInfo(id, password);
+    let signInId;
 
-    console.log(result._j);
     if (result._j === true) {
-      Alert.alert('Login Success', 'OK', [
-        {
-          onPress: () => navigation.navigate('SignIn'),
-        },
-      ]);
-    } else {
-      Alert.alert('Login Failed');
+      console.log('Not empty id & password');
     }
+
+    loginMutation.mutate(
+      { id, password },
+      {
+        onSuccess: (data, variables, context) => {
+          console.log('variables ', variables);
+          //navigation.setParams({ signInId: variables.id });
+          signInId = variables.id;
+          Alert.alert('Login Success', 'OK', [
+            {
+              onPress: () => navigation.navigate('SignIn', { id: signInId }),
+            },
+          ]);
+        },
+        onError: (data, variables, context) => {
+          Alert.alert('Login Failed');
+        },
+      },
+    );
   };
 
   return (
