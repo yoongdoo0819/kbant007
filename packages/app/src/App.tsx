@@ -12,6 +12,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import restApi from './api/restAPI';
 import { useQuery } from 'react-query';
+import MyIcon from '../../storybook/stories/components/Icon/MyIcon';
+import MyAnimationInput from '../../storybook/stories/components/AnimationInput/MyAnimationInput';
 
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
@@ -26,7 +28,11 @@ export function App(): JSX.Element {
           }}>
           <Stack.Screen name={'Index'} component={Index} options={{ headerShown: false }} />
           <Stack.Screen name={'SignUp'} component={SignUp} />
-          <Stack.Screen name={'SignIn'} component={SignIn} options={{ headerBackVisible: false }} />
+          <Stack.Screen
+            name={'SignIn'}
+            component={SignIn}
+            options={{ headerBackVisible: false /*headerRight: MyIcon*/ }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

@@ -78,8 +78,8 @@ export default function Index({}) {
           width={200}></MyTextInput>
       </View>
       <View style={styles.buttonContainer}>
-        <MyButton title={'SignUp'} buttonColor={'rgb(214, 230, 245)'} onpress={signUp}></MyButton>
-        <MyButton title={'SignIn'} buttonColor={'rgb(214, 230, 245)'} onpress={signIn}></MyButton>
+        <MyButton title={'SignUp'} buttonColor={'rgb(214, 230, 245)'} onpress={signUp} width={100}></MyButton>
+        <MyButton title={'SignIn'} buttonColor={'rgb(214, 230, 245)'} onpress={signIn} width={100}></MyButton>
       </View>
     </SafeAreaView>
   );

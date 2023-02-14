@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import React from 'react';
 import { Pressable, PressableProps, Text, TextProps, View, Button, TouchableOpacity, Alert } from 'react-native';
 import { StyledPrimaryText, StyledComponentText } from './Button.styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface MyButtonProps extends PressableProps {
   variant: string;
@@ -10,7 +11,7 @@ interface MyButtonProps extends PressableProps {
   children: ReactNode;
 }
 
-export default function MyButton({ title, buttonColor, onpress }) {
+export default function MyButton({ title, buttonColor, onpress, width }) {
   const ButtonColor = { RED: 'red', BLUE: 'blue', GREEN: 'green' };
 
   const onSubmit = () => {
@@ -24,7 +25,7 @@ export default function MyButton({ title, buttonColor, onpress }) {
         //borderColor: 'rgba(0,0,0,0.2)',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 70,
+        width: width,
         height: 50,
         backgroundColor: buttonColor,
         borderRadius: 5,

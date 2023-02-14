@@ -27,22 +27,24 @@ export default function MyAnimationInput() {
   const inputHeight = useRef(new Animated.Value(0)).current;
   const animation = useRef(new Animated.Value(0)).current;
 
-  const onPressButton = () => (isOpened ? close() : open());
+  const onPressButton = () => {
+    isOpened ? close() : open();
+  };
 
   const open = () => {
     setIsOpened(true);
     /*
-    Animated.timing(inputWidth, {
-      toValue: 300,
-      useNativeDriver: false,
-      duration: 300,
-    }).start();
+  Animated.timing(inputWidth, {
+    toValue: 300,
+    useNativeDriver: false,
+    duration: 300,
+  }).start();
 
-    Animated.timing(inputHeight, {
-      toValue: 300,
-      useNativeDriver: false,
-      duration: 300,
-    }).start();
+  Animated.timing(inputHeight, {
+    toValue: 300,
+    useNativeDriver: false,
+    duration: 300,
+  }).start();
 */
     Animated.timing(animation, {
       toValue: 1,
@@ -54,16 +56,16 @@ export default function MyAnimationInput() {
   const close = () => {
     setIsOpened(false);
     /*
-    Animated.timing(inputWidth, {
-      toValue: 0,
-      useNativeDriver: false,
-      duration: 300,
-    }).start();
-    Animated.timing(inputHeight, {
-      toValue: 0,
-      useNativeDriver: false,
-      duration: 300,
-    }).start();
+  Animated.timing(inputWidth, {
+    toValue: 0,
+    useNativeDriver: false,
+    duration: 300,
+  }).start();
+  Animated.timing(inputHeight, {
+    toValue: 0,
+    useNativeDriver: false,
+    duration: 300,
+  }).start();
 */
     Animated.timing(animation, {
       toValue: 0,
@@ -98,23 +100,29 @@ export default function MyAnimationInput() {
         style={{
           position: 'absolute',
           bottom: 200,
-          //left: '5%',
+          left: '5%',
           width: '100%',
           borderRadius: 30,
           //justifyContent: 'center',
           //alignItems: 'center',
+          flexDirection: 'row',
         }}>
-        {/* <View>
+        <View
+          style={{
+            width: '70%',
+            marginTop: 10,
+          }}>
+          <Button title={'Text'} color={'rgb(214, 230, 245)'} onPress={onPressButton}></Button>
+        </View>
+        <View
+          style={{
+            width: '30%',
+          }}>
+          <Pressable onPress={onPressButton}>
             <Text>
               <Icon name="folder-plus" size={60} color="black"></Icon>
             </Text>
-          </View> */}
-        <View
-          style={{
-            left: '5%',
-            width: '90%',
-          }}>
-          <Button title={'Text'} color={'rgb(214, 230, 245)'} onPress={onPressButton}></Button>
+          </Pressable>
         </View>
       </Animated.View>
     </>

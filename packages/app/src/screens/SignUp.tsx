@@ -1,6 +1,6 @@
-import { StyleSheet, SafeAreaView, Image, Alert } from 'react-native';
+import { StyleSheet, SafeAreaView, Image, Alert, Button } from 'react-native';
 import { View, Text } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AsyncStorageExample } from '../AsyncStorageExample';
 import MyTextInput from '../../../storybook/stories/components/TextInput/MyTextInput';
 import MyButton from '../../../storybook/stories/components/Button/MyButton';
@@ -8,13 +8,18 @@ import { useNavigation } from '@react-navigation/native';
 import LogoSrc from '../logo.png';
 import { useMutation } from '@tanstack/react-query';
 import { setSignUpInfo, signUpAxios } from '../api/restAPI';
+import MyIcon from '../../../storybook/stories/components/Icon/MyIcon';
 
 export default function SignUp({}) {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
   const signUpMutation = useMutation(['signUpMutation'], signUpAxios);
-
+  /*
+  useEffect(() => {
+    navigation.setOptions({ headerRight: () => MyIcon });
+  }, [navigation]);
+*/
   const signUp = async () => {
     //navigation.navigate('SignUp');
     //testUseReactQuery();
@@ -73,7 +78,7 @@ export default function SignUp({}) {
           width={200}></MyTextInput>
       </View>
       <View style={styles.buttonContainer}>
-        <MyButton title={'Submit'} buttonColor={'rgb(214, 230, 245)'} onpress={signUp}></MyButton>
+        <MyButton title={'Submit'} buttonColor={'rgb(214, 230, 245)'} onpress={signUp} width={100}></MyButton>
       </View>
     </SafeAreaView>
   );
