@@ -1,0 +1,44 @@
+{
+  "name": "@kbant/extensions",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "INLINE_RUNTIME_CHUNK=false craco start",
+    "build": "INLINE_RUNTIME_CHUNK=false craco build",
+    "test": "INLINE_RUNTIME_CHUNK=false craco test"
+  },
+  "dependencies": {
+    "@kbant/app": "*",
+    "@react-native-async-storage/async-storage": "^1.17.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-native": "^0.71.1",
+    "react-native-web": "^0.18.10",
+    "react-scripts": "^4.0.3",
+    "web-vitals": "^3.1.1"
+  },
+  "devDependencies": {
+    "@craco/craco": "^6.2.0",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "react-native-monorepo-tools": "^1.2.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
