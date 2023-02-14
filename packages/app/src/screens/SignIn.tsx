@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { View, Text } from 'react-native';
-import React from 'react';
-import MyInputFloatingActionButton from '../../../storybook/stories/components/InputFloatingActionButton/MyInputFloatingActionButton';
+import React, { useEffect } from 'react';
+
 import { queryMemberReactQuery } from '../api/restAPI';
 import { useNavigation } from '@react-navigation/native';
+import MyAnimationInput from '../../../storybook/stories/components/AnimationInput/MyAnimationInput';
+import MyButton from '../../../storybook/stories/components/Button/MyButton';
 
 export default function SignIn({ route }) {
   //const { data } = queryMemberReactQuery('ID');
@@ -11,10 +13,13 @@ export default function SignIn({ route }) {
   const { id } = route.params;
   console.log('login success : ', { id });
 
+  useEffect(() => {
+    navigation.setOptions({ title: id });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
-      <Text>{id}</Text>
-      <MyInputFloatingActionButton></MyInputFloatingActionButton>
+      <MyAnimationInput></MyAnimationInput>
     </View>
   );
 }
@@ -24,5 +29,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    height: '100%',
   },
 });
