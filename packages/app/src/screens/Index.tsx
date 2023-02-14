@@ -12,14 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { testAxios, testUseReactQuery } from '../api/react-queryAPI';
-import {
-  handleSubmit,
-  loginMutation,
-  setSignUpInfo,
-  signUpAxios,
-  testUseMutation,
-  useMutationHandler,
-} from '../api/mutateAPI';
+import { setSignUpInfo, signUpAxios } from '@kbant/app/src/api/restAPI';
 
 const queryClient = new QueryClient();
 
@@ -33,7 +26,6 @@ export default function Index({}) {
   const signUp = async () => {
     navigation.navigate('SignUp');
     //testUseReactQuery();
-    restApi();
   };
 
   const signIn = () => {

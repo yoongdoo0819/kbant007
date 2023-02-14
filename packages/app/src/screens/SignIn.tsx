@@ -8,8 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 export default function SignIn({ route }) {
   //const { data } = queryMemberReactQuery('ID');
   const navigation = useNavigation();
-  //const signInState = navigation.console.log('>> ', signInState);
-
   const { id } = route.params;
   console.log('login success : ', { id });
 

@@ -57,13 +57,13 @@ export const signUpAxios = async signUpInfo => {
 };
 
 const queryMemberUrl = 'http://172.28.212.193:8080/members/new';
-export const queryyMemberAxios = async id => {
-  const response = await axios.get(queryMemberUrl + '/' + id);
+export const queryyMemberAxios = async () => {
+  const response = await axios.get(queryMemberUrl);
   return response.data;
 };
 
-export const queryMemberReactQuery = (id: string) => {
-  const { data } = useQuery(['test'], queryyMemberAxios(id));
+const queryMemberReactQuery = (id: string) => {
+  const { data } = useQuery(['test'], queryyMemberAxios);
   console.log('data : ', { data });
   return { data };
 };
