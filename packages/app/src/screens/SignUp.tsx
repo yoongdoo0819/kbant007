@@ -14,7 +14,7 @@ export default function SignUp({}) {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
-  const signUpMutation = useMutation(['signUpMutation'], signUpAxios);
+  const signUpMutation = useMutation(signUpAxios);
   /*
   useEffect(() => {
     navigation.setOptions({ headerRight: () => MyIcon });

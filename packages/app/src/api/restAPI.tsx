@@ -2,39 +2,47 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import * as React from 'react';
 
+/**
+ * MyAllBoardList
+ */
 /*
-const url = 'http://172.28.212.193:8080/members/new';
-const options = {
-  method: 'GET',
-  url: url,
-  headers: {
-    //Accept: 'application/json',
-    'Content-Type': 'application/json;charset=UTF-8',
-  },
-  data: {
-    // property_one: value_one,
-    // property_two: value_two,
-  },
-};
-const restApi = async () => {
-  console.log('start');
-  const result = await axios(options);
-  console.log('end');
-  console.log(result);
-  return result;
+const queryMyBoardListUrl = 'http://172.28.212.193:8080/board/myList';
+export const queryMyBoardListAxios = async () => {
+  const response = await axios.get(queryMyBoardListUrl);
+  return response.data;
 };
 
-export default restApi;
+export const queryMyBoardListReactQuery = (id: string) => {
+  const { data } = useQuery(['queryMyBoardListAxios'], queryMyBoardListAxios);
+  console.log('data : ', { data });
+  return { data };
+};
 */
 
+/**
+ * queryMyBoardListUrl
+ */
+const queryMyBoardListUrl = 'http://172.28.212.193:8080/board/myList';
+export const queryMyBoardListReactQuery = async myInfo => {
+  console.log('id : ', myInfo.id);
+  const id = myInfo.id;
+  const response = await axios.get(queryMyBoardListUrl + '/' + id);
+
+  return response;
+};
+
+/**
+ * getAllBoardList
+ */
 const queryAllBoardListUrl = 'http://172.28.212.193:8080/board/allList';
 export const queryAllBoardListAxios = async () => {
   const response = await axios.get(queryAllBoardListUrl);
+
   return response.data;
 };
 
 export const queryAllBoardListReactQuery = () => {
-  const { data } = useQuery(['test'], queryAllBoardListAxios);
+  const { data } = useQuery(['queryAllBoardListAxios'], queryAllBoardListAxios);
   console.log('data : ', { data });
   return { data };
 };
@@ -58,15 +66,14 @@ export const signUpAxios = async signUpInfo => {
   console.log('password : ', signUpInfo.password);
   const id = signUpInfo.id;
   const password = signUpInfo.password;
-  const response = await axios
-    .post(encodeURI(signUpUrl), null, {
-      params: {
-        id,
-        password,
-      },
-    })
-    .then(response => response.status)
-    .catch(err => console.warn('err : ', err));
+  const response = await axios.post(encodeURI(signUpUrl), null, {
+    params: {
+      id,
+      password,
+    },
+  });
+  //.then(response => response.status)
+  //.catch(err => console.warn('err : ', err));
 
   return response;
 };
@@ -90,21 +97,20 @@ export const signInAxios = async signInInfo => {
   console.log('password : ', signInInfo.password);
   const id = signInInfo.id;
   const password = signInInfo.password;
-  const response = await axios
-    .post(encodeURI(signInUrl), null, {
-      params: {
-        id,
-        password,
-      },
-    })
-    .then(response => response.status)
-    .catch(err => console.warn('err : ', err));
+  const response = await axios.post(encodeURI(signInUrl), null, {
+    params: {
+      id,
+      password,
+    },
+  });
+  //.then(response => response.status)
+  //.catch(err => console.warn('err : ', err));
 
   return response;
 };
 
 /**
- * storePost
+ * storeBoard
  */
 const storeBoardUrl = 'http://172.28.212.193:8080/board/store';
 export const setBoardInfo = (title: string, content: string) => {
@@ -123,16 +129,15 @@ export const storeBoardAxios = async boardInfo => {
   const id = boardInfo.id;
   const title = boardInfo.title;
   const content = boardInfo.content;
-  const response = await axios
-    .post(storeBoardUrl, null, {
-      params: {
-        id,
-        title,
-        content,
-      },
-    })
-    .then(response => response.status)
-    .catch(err => console.warn('err : ', err));
+  const response = await axios.post(storeBoardUrl, null, {
+    params: {
+      id,
+      title,
+      content,
+    },
+  });
+  //.then(response => response.status)
+  //.catch(err => console.warn('err : ', err));
 
   return response;
 };

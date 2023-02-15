@@ -13,7 +13,6 @@ import MyTextInput from '../../../storybook/stories/components/TextInput/MyTextI
 import { useMutation } from '@tanstack/react-query';
 
 export default function SignIn({ route }) {
-  //const { data } = queryMemberReactQuery('ID');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isOpened, setIsOpened] = useState(false);
@@ -21,7 +20,7 @@ export default function SignIn({ route }) {
   const inputHeight = useRef(new Animated.Value(0)).current;
   const animation = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
-  const storeBoardMutation = useMutation(['storeBoardMutation'], storeBoardAxios);
+  const storeBoardMutation = useMutation(storeBoardAxios);
 
   const { id } = route.params;
   console.log('login success : ', { id });
@@ -43,7 +42,7 @@ export default function SignIn({ route }) {
             console.log('variables ', variables);
             idx = variables.idx;
 
-            if (data == 200) {
+            if (data.status == 200) {
               Alert.alert('Board Store Success', 'OK');
             } else {
               Alert.alert('Board Store Failed');
@@ -56,6 +55,10 @@ export default function SignIn({ route }) {
 
   const moveAllBoardList = () => {
     navigation.navigate('AllBoardList');
+  };
+
+  const moveMyBoardList = () => {
+    navigation.navigate('MyBoardList', { id: id });
   };
 
   useEffect(() => {
@@ -114,7 +117,7 @@ export default function SignIn({ route }) {
       <Animated.View
         style={{
           //position: 'absolute',
-          marginTop: 10,
+          marginTop: 0,
           left: '5%',
           //width: inputWidth,
           width: '90%',
@@ -165,6 +168,7 @@ export default function SignIn({ route }) {
           width: '100%',
         }}>
         <MyButton title={'All Board List'} buttonColor={'rgb(214, 230, 245)'} onpress={moveAllBoardList}></MyButton>
+        <MyButton title={'My Board List'} buttonColor={'rgb(214, 230, 245)'} onpress={moveMyBoardList}></MyButton>
       </View>
     </SafeAreaView>
   );

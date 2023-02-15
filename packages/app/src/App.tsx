@@ -15,6 +15,7 @@ import { useQuery } from 'react-query';
 import MyIcon from '../../storybook/stories/components/Icon/MyIcon';
 import MyAnimationInput from '../../storybook/stories/components/AnimationInput/MyAnimationInput';
 import AllBoardList from './screens/AllBoardList';
+import MyBoardList from './screens/MyBoardList';
 
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ export function App(): JSX.Element {
             options={{ headerBackVisible: false /*headerRight: MyIcon*/ }}
           />
           <Stack.Screen name={'AllBoardList'} component={AllBoardList} />
+          <Stack.Screen name={'MyBoardList'} component={MyBoardList} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>
