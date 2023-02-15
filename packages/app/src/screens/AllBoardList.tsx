@@ -15,8 +15,8 @@ export default function AllBoardList({}) {
     <Text
       style={{
         //borderWidth: 0.5,
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
+        borderTopWidth: 0.3,
+        borderBottomWidth: 0.3,
         padding: 10,
         //        margin: 10,
         width: '90%',
@@ -30,7 +30,8 @@ export default function AllBoardList({}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    marginTop: 30,
+    //justifyContent: 'center',
     alignItems: 'center',
   },
 });
