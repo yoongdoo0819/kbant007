@@ -9,6 +9,7 @@ import MyButton from '../../../storybook/stories/components/Button/MyButton';
 import { Button } from '@react-native-material/core';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MyIcon from '../../../storybook/stories/components/Icon/MyIcon';
+import MyTextInput from '../../../storybook/stories/components/TextInput/MyTextInput';
 
 export default function SignIn({ route }) {
   //const { data } = queryMemberReactQuery('ID');
@@ -20,6 +21,10 @@ export default function SignIn({ route }) {
 
   const { id } = route.params;
   console.log('login success : ', { id });
+
+  const moveList = () => {
+    navigation.navigate('List');
+  };
 
   useEffect(() => {
     navigation.setOptions({ title: id });
@@ -78,18 +83,19 @@ export default function SignIn({ route }) {
         style={{
           //position: 'absolute',
           marginTop: 10,
-          //left: 30,
+          left: '5%',
           //width: inputWidth,
-          width: '100%',
+          width: '90%',
           opacity: animation,
         }}>
+        <MyTextInput placeholder="title"></MyTextInput>
         <TextInput
           style={{
             borderWidth: 1,
-            //height: , // == 0 ? 30 : inputHeight,
-            left: '5%',
-            height: 400,
-            width: '90%',
+            marginTop: 10,
+            //left: '5%',
+            height: 300,
+            //width: '90%',
             //height: ,
           }}
           multiline={true}></TextInput>
@@ -124,7 +130,7 @@ export default function SignIn({ route }) {
         style={{
           width: '100%',
         }}>
-        <MyButton title={'List'} buttonColor={'rgb(214, 230, 245)'} onpress={onPressButton}></MyButton>
+        <MyButton title={'List'} buttonColor={'rgb(214, 230, 245)'} onpress={moveList}></MyButton>
       </View>
     </SafeAreaView>
   );
