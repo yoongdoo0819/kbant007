@@ -102,3 +102,35 @@ export const signInAxios = async signInInfo => {
 
   return response;
 };
+
+/**
+ * storePost
+ */
+const storeBoardUrl = 'http://172.28.212.193:8080/board/store';
+export const setBoardInfo = (title: string, content: string) => {
+  return new Promise((resolve, reject) => {
+    if (title !== '' && content !== '') {
+      resolve(true);
+    } else {
+      reject(false);
+    }
+  });
+};
+
+export const storeBoardAxios = async boardInfo => {
+  console.log('title : ', boardInfo.title);
+  console.log('content : ', boardInfo.content);
+  const title = boardInfo.title;
+  const content = boardInfo.content;
+  const response = await axios
+    .post(storeBoardUrl, null, {
+      params: {
+        title,
+        content,
+      },
+    })
+    .then(response => response.status)
+    .catch(err => console.warn('err : ', err));
+
+  return response;
+};

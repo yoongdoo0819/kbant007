@@ -1,8 +1,8 @@
-import { StyleSheet, Animated, TextInput, Pressable, SafeAreaView } from 'react-native';
+import { StyleSheet, Animated, TextInput, Pressable, SafeAreaView, Alert } from 'react-native';
 import { View, Text } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 
-import { queryMemberReactQuery } from '../api/restAPI';
+import { queryMemberReactQuery, setBoardInfo, storeBoardAxios } from '../api/restAPI';
 import { useNavigation } from '@react-navigation/native';
 import MyAnimationInput from '../../../storybook/stories/components/AnimationInput/MyAnimationInput';
 import MyButton from '../../../storybook/stories/components/Button/MyButton';
@@ -10,17 +10,49 @@ import { Button } from '@react-native-material/core';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MyIcon from '../../../storybook/stories/components/Icon/MyIcon';
 import MyTextInput from '../../../storybook/stories/components/TextInput/MyTextInput';
+import { useMutation } from '@tanstack/react-query';
 
 export default function SignIn({ route }) {
   //const { data } = queryMemberReactQuery('ID');
-  const navigation = useNavigation();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [isOpened, setIsOpened] = useState(false);
   const inputWidth = useRef(new Animated.Value(0)).current;
   const inputHeight = useRef(new Animated.Value(0)).current;
   const animation = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation();
+  const storeBoardMutation = useMutation(['storeBoardMutation'], storeBoardAxios);
 
   const { id } = route.params;
   console.log('login success : ', { id });
+
+  const storeBoard = () => {
+    //const result = auth(id, password);
+    const result = setBoardInfo(title, content);
+    let idx;
+
+    if (result._j !== true) {
+      Alert.alert('empty title or content');
+    } else {
+      storeBoardMutation.mutate(
+        { title, content },
+        {
+          onSuccess: (data, variables, context) => {
+            console.log(data);
+            console.log(context);
+            console.log('variables ', variables);
+            idx = variables.idx;
+
+            if (data == 200) {
+              Alert.alert('Board Store Success', 'OK');
+            } else {
+              Alert.alert('Board Store Failed');
+            }
+          },
+        },
+      );
+    }
+  };
 
   const moveList = () => {
     navigation.navigate('List');
@@ -28,7 +60,7 @@ export default function SignIn({ route }) {
 
   useEffect(() => {
     navigation.setOptions({ title: id });
-  }, [navigation]);
+  }, []);
 
   const onPressButton = () => {
     isOpened ? close() : open();
@@ -88,7 +120,7 @@ export default function SignIn({ route }) {
           width: '90%',
           opacity: animation,
         }}>
-        <MyTextInput placeholder="title"></MyTextInput>
+        <MyTextInput placeholder="title" setState={setTitle}></MyTextInput>
         <TextInput
           style={{
             borderWidth: 1,
@@ -98,7 +130,9 @@ export default function SignIn({ route }) {
             //width: '90%',
             //height: ,
           }}
-          multiline={true}></TextInput>
+          placeholder="content"
+          multiline={true}
+          onChangeText={text => setContent(text)}></TextInput>
       </Animated.View>
       <Animated.View
         style={{
@@ -121,7 +155,7 @@ export default function SignIn({ route }) {
           style={{
             width: '20%',
           }}>
-          <Pressable onPress={onPressButton}>
+          <Pressable onPress={storeBoard}>
             <MyIcon></MyIcon>
           </Pressable>
         </View>
