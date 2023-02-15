@@ -120,11 +120,13 @@ export const setBoardInfo = (title: string, content: string) => {
 export const storeBoardAxios = async boardInfo => {
   console.log('title : ', boardInfo.title);
   console.log('content : ', boardInfo.content);
+  const id = boardInfo.id;
   const title = boardInfo.title;
   const content = boardInfo.content;
   const response = await axios
     .post(storeBoardUrl, null, {
       params: {
+        id,
         title,
         content,
       },

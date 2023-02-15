@@ -35,7 +35,7 @@ export default function SignIn({ route }) {
       Alert.alert('empty title or content');
     } else {
       storeBoardMutation.mutate(
-        { title, content },
+        { id, title, content },
         {
           onSuccess: (data, variables, context) => {
             console.log(data);
