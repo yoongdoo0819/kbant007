@@ -54,8 +54,8 @@ export default function SignIn({ route }) {
     }
   };
 
-  const moveList = () => {
-    navigation.navigate('List');
+  const moveAllBoardList = () => {
+    navigation.navigate('AllBoardList');
   };
 
   useEffect(() => {
@@ -164,7 +164,7 @@ export default function SignIn({ route }) {
         style={{
           width: '100%',
         }}>
-        <MyButton title={'List'} buttonColor={'rgb(214, 230, 245)'} onpress={moveList}></MyButton>
+        <MyButton title={'All Board List'} buttonColor={'rgb(214, 230, 245)'} onpress={moveAllBoardList}></MyButton>
       </View>
     </SafeAreaView>
   );

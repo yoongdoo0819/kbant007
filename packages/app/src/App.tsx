@@ -14,7 +14,7 @@ import restApi from './api/restAPI';
 import { useQuery } from 'react-query';
 import MyIcon from '../../storybook/stories/components/Icon/MyIcon';
 import MyAnimationInput from '../../storybook/stories/components/AnimationInput/MyAnimationInput';
-import List from './screens/List';
+import AllBoardList from './screens/AllBoardList';
 
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
@@ -34,7 +34,7 @@ export function App(): JSX.Element {
             component={SignIn}
             options={{ headerBackVisible: false /*headerRight: MyIcon*/ }}
           />
-          <Stack.Screen name={'List'} component={List} />
+          <Stack.Screen name={'AllBoardList'} component={AllBoardList} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

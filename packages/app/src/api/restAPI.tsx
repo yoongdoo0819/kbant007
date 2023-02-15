@@ -27,14 +27,14 @@ const restApi = async () => {
 export default restApi;
 */
 
-const queryMemberUrl = 'http://172.28.212.193:8080/members/new';
-export const queryyMemberAxios = async () => {
-  const response = await axios.get(queryMemberUrl);
+const queryAllBoardListUrl = 'http://172.28.212.193:8080/board/allList';
+export const queryAllBoardListAxios = async () => {
+  const response = await axios.get(queryAllBoardListUrl);
   return response.data;
 };
 
-const queryMemberReactQuery = (id: string) => {
-  const { data } = useQuery(['test'], queryyMemberAxios);
+export const queryAllBoardListReactQuery = () => {
+  const { data } = useQuery(['test'], queryAllBoardListAxios);
   console.log('data : ', { data });
   return { data };
 };
