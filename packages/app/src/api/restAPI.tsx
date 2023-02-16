@@ -42,7 +42,7 @@ export const queryAllBoardListAxios = async () => {
 };
 
 export const queryAllBoardListReactQuery = async () => {
-  const response = useQuery(['queryAllBoardListAxios'], queryAllBoardListAxios);
+  const response = await useQuery(['queryAllBoardListAxios'], queryAllBoardListAxios);
   console.log('res : ', response);
   return response;
 };
