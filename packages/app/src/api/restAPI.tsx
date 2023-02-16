@@ -141,3 +141,28 @@ export const storeBoardAxios = async boardInfo => {
 
   return response;
 };
+
+/**
+ * storeBoard
+ */
+const updateBoardUrl = 'http://172.28.212.193:8080/board/update';
+export const updateBoardAxios = async boardInfo => {
+  console.log('update title : ', boardInfo.title);
+  console.log('update content : ', boardInfo.content);
+  const id = boardInfo.id;
+  const idx = boardInfo.idx;
+  const title = boardInfo.title;
+  const content = boardInfo.content;
+  const response = await axios.post(updateBoardUrl, null, {
+    params: {
+      id,
+      idx,
+      title,
+      content,
+    },
+  });
+  //.then(response => response.status)
+  //.catch(err => console.warn('err : ', err));
+
+  return response;
+};
