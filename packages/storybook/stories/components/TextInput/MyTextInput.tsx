@@ -18,7 +18,7 @@ import { StyledPrimaryText, StyledComponentText } from '../Button/Button.styles'
 import { TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native';
 
-export default function MyTextInput({ placeholder, keyboardType, secureTextEntry, setState, width }) {
+export default function MyTextInput({ placeholder, keyboardType, secureTextEntry, setState, width, value }) {
   return (
     <SafeAreaView>
       <TextInput
@@ -28,6 +28,7 @@ export default function MyTextInput({ placeholder, keyboardType, secureTextEntry
         keyboardAppearance="default"
         secureTextEntry={secureTextEntry}
         onChangeText={text => setState(text)}
+        value={value}
         //inlineImageLeft="images"
         style={{
           marginTop: 10,

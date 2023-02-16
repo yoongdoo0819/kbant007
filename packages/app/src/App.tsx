@@ -16,6 +16,7 @@ import MyIcon from '../../storybook/stories/components/Icon/MyIcon';
 import MyAnimationInput from '../../storybook/stories/components/AnimationInput/MyAnimationInput';
 import AllBoardList from './screens/AllBoardList';
 import MyBoardList from './screens/MyBoardList';
+import MyBoard from './screens/MyBoard';
 
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ export function App(): JSX.Element {
           />
           <Stack.Screen name={'AllBoardList'} component={AllBoardList} />
           <Stack.Screen name={'MyBoardList'} component={MyBoardList} />
+          <Stack.Screen name={'MyBoard'} component={MyBoard} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

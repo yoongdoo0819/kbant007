@@ -17,8 +17,12 @@ export default function MyBoardList({ route }) {
 
   // useEffect(() => {}, []);
 
-  const boardEvent = () => {
+  const boardEvent = (idx: string, title: string, content: string) => {
     console.log('hi');
+    console.log(idx);
+    console.log(title);
+    console.log(content);
+    navigation.navigate('MyBoard', { id: id, idx: idx, title: title, content: content });
   };
 
   useEffect(() => {
@@ -43,7 +47,7 @@ export default function MyBoardList({ route }) {
                     style={{
                       width: '90%',
                     }}>
-                    <Pressable onPress={boardEvent}>
+                    <Pressable onPress={() => boardEvent(board.idx, board.title, board.content)}>
                       <Text
                         style={{
                           //borderWidth: 0.5,
