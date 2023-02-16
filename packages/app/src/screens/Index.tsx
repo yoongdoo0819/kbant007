@@ -42,7 +42,7 @@ export default function Index({}) {
           //navigation.setParams({ signInId: variables.id });
           signInId = variables.id;
 
-          if (data == 200) {
+          if (data.status == 200) {
             Alert.alert('Login Success', 'OK', [
               {
                 onPress: () => navigation.navigate('SignIn', { id: signInId }),

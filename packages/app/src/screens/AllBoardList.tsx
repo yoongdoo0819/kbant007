@@ -6,10 +6,11 @@ import MyTextInput from '../../../storybook/stories/components/TextInput/MyTextI
 
 export default function AllBoardList({}) {
   const { data } = queryAllBoardListReactQuery();
-  console.log(data[0].idx);
-  const idx = data[0].idx;
-  const title = data[0].title;
-  const content = data[0].content;
+  console.log(data);
+  // console.log(data[0].idx);
+  // const idx = data[0].idx;
+  // const title = data[0].title;
+  // const content = data[0].content;
 
   const boards = data.map(board => (
     <Text
