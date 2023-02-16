@@ -1,4 +1,4 @@
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet, Alert, Pressable } from 'react-native';
 import { View, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { queryMyBoardListReactQuery, queryMyBoardListAxios } from '../api/restAPI';
@@ -17,6 +17,10 @@ export default function MyBoardList({ route }) {
 
   // useEffect(() => {}, []);
 
+  const boardEvent = () => {
+    console.log('hi');
+  };
+
   useEffect(() => {
     myBoardListMutation.mutate(
       { id },
@@ -28,24 +32,31 @@ export default function MyBoardList({ route }) {
           //console.log('variables ', variables);
 
           if (data.status == 200) {
-            Alert.alert('Board Store Success');
+            //Alert.alert('Board Store Success');
 
             console.log(boards);
 
             if (boards === '') {
               setBoards(
                 data.data.map(board => (
-                  <Text
+                  <View
                     style={{
-                      //borderWidth: 0.5,
-                      borderTopWidth: 0.3,
-                      borderBottomWidth: 0.3,
-                      padding: 10,
-                      //        margin: 10,
                       width: '90%',
                     }}>
-                    {board.idx}. {board.title}
-                  </Text>
+                    <Pressable onPress={boardEvent}>
+                      <Text
+                        style={{
+                          //borderWidth: 0.5,
+                          borderTopWidth: 0.3,
+                          borderBottomWidth: 0.3,
+                          padding: 10,
+                          //        margin: 10,
+                          //width: '90%',
+                        }}>
+                        {board.idx}. {board.title}
+                      </Text>
+                    </Pressable>
+                  </View>
                 )),
               );
             }

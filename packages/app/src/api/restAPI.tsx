@@ -38,13 +38,13 @@ const queryAllBoardListUrl = 'http://172.28.212.193:8080/board/allList';
 export const queryAllBoardListAxios = async () => {
   const response = await axios.get(queryAllBoardListUrl);
 
-  return response.data;
+  return response;
 };
 
-export const queryAllBoardListReactQuery = () => {
-  const { data } = useQuery(['queryAllBoardListAxios'], queryAllBoardListAxios);
-  console.log('data : ', { data });
-  return { data };
+export const queryAllBoardListReactQuery = async () => {
+  const response = useQuery(['queryAllBoardListAxios'], queryAllBoardListAxios);
+  console.log('res : ', response);
+  return response;
 };
 
 /**
