@@ -143,7 +143,7 @@ export const storeBoardAxios = async boardInfo => {
 };
 
 /**
- * storeBoard
+ * updateBoard
  */
 const updateBoardUrl = 'http://172.28.212.193:8080/board/update';
 export const updateBoardAxios = async boardInfo => {
@@ -159,6 +159,28 @@ export const updateBoardAxios = async boardInfo => {
       idx,
       title,
       content,
+    },
+  });
+  //.then(response => response.status)
+  //.catch(err => console.warn('err : ', err));
+
+  return response;
+};
+
+/**
+ * deleteBoard
+ */
+const deleteBoardUrl = 'http://172.28.212.193:8080/board/delete';
+export const deleteBoardAxios = async deleteInfo => {
+  console.log('update title : ', deleteInfo.id);
+  console.log('update content : ', deleteInfo.idx);
+  const id = deleteInfo.id;
+  const idx = deleteInfo.idx;
+
+  const response = await axios.post(deleteBoardUrl, null, {
+    params: {
+      id,
+      idx,
     },
   });
   //.then(response => response.status)

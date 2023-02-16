@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import MyTextInput from '../../../storybook/stories/components/TextInput/MyTextInput';
 import MyButton from '../../../storybook/stories/components/Button/MyButton';
 import MyIcon from '../../../storybook/stories/components/Icon/MyIcon';
-import { setBoardInfo, updateBoardAxios } from '../api/restAPI';
+import { setBoardInfo, updateBoardAxios, deleteBoardAxios } from '../api/restAPI';
 import { useMutation } from '@tanstack/react-query';
 
 export default function MyBoard({ route }) {
@@ -15,6 +15,7 @@ export default function MyBoard({ route }) {
   const [title, setTitle] = useState(route.params.title);
   const [content, setContent] = useState(route.params.content);
   const updateBoardMutation = useMutation(updateBoardAxios);
+  const deleteBoardMutation = useMutation(deleteBoardAxios);
 
   const updateBoard = () => {
     console.log('idx : ', idx);
@@ -45,6 +46,25 @@ export default function MyBoard({ route }) {
     }
   };
 
+  const deleteBoard = () => {
+    deleteBoardMutation.mutate(
+      { id, idx },
+      {
+        onSuccess: (data, variables, context) => {
+          console.log(data);
+          console.log(context);
+          console.log('variables ', variables);
+
+          if (data.status == 200) {
+            Alert.alert('Board Delete Success', 'OK');
+          } else {
+            Alert.alert('Board Delete Failed');
+          }
+        },
+      },
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -67,6 +87,7 @@ export default function MyBoard({ route }) {
           width: '80%',
         }}>
         <MyButton title={'Update'} buttonColor={'rgb(214, 230, 245)'} onpress={updateBoard}></MyButton>
+        <MyButton title={'Delete'} buttonColor={'rgb(214, 230, 245)'} onpress={deleteBoard}></MyButton>
       </View>
       <View
         style={{
