@@ -54,7 +54,7 @@ export default function SignIn({ route }) {
   };
 
   const moveAllBoardList = () => {
-    navigation.navigate('AllBoardList');
+    navigation.navigate('AllBoardList', { id: id });
   };
 
   const moveMyBoardList = () => {
