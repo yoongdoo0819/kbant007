@@ -9,6 +9,7 @@ import LogoSrc from '../logo.png';
 import { useMutation } from '@tanstack/react-query';
 import { setSignUpInfo, signUpAxios } from '../api/restAPI';
 import MyIcon from '../../../storybook/stories/components/Icon/MyIcon';
+import { KaikasWeb3Provider } from '@klaytn/kaikas-web3-provider';
 
 export default function SignUp({}) {
   const [id, setId] = useState('');
@@ -20,6 +21,7 @@ export default function SignUp({}) {
     navigation.setOptions({ headerRight: () => MyIcon });
   }, [navigation]);
 */
+
   const signUp = async () => {
     //navigation.navigate('SignUp');
     //testUseReactQuery();

@@ -18,8 +18,68 @@ import AllBoardList from './screens/AllBoardList';
 import MyBoardList from './screens/MyBoardList';
 import MyBoard from './screens/MyBoard';
 
+import Web3 from 'web3';
+import Web3Modal from 'web3modal';
+
+import './shim';
+import { ethers } from 'ethers';
+import MetaMaskSDK from '@metamask/sdk';
+import { Linking } from 'react-native';
+import BackgroundTimer from 'react-native-background-timer';
+//import detectEthereumProvider from '@metamask/detect-provider';
+
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
+
+const sdk = new MetaMaskSDK({
+  openDeeplink: link => {
+    Linking.openURL(link);
+  },
+  timer: BackgroundTimer,
+  dappMetadata: {
+    name: 'React Native Test Dapp',
+    url: 'example.com',
+  },
+});
+
+const ethereum = sdk.getProvider();
+
+// const provider = new ethers.providers.Web3Provider(ethereum);
+
+const sendTransaction = async () => {
+  const to = '0x0000000000000000000000000000000000000000';
+  const transactionParameters = {
+    to, // Required except during contract publications.
+    from: ethereum.selectedAddress, // must match user's active address.
+    value: '0x0000000001', // Only required to send ether to the recipient from the initiating external account.
+  };
+
+  try {
+    // txHash is a hex string
+    // As with any RPC call, it may throw an error
+    const txHash = await ethereum.request({
+      method: 'eth_sendTransaction',
+      params: [transactionParameters],
+    });
+
+    //setResponse(txHash);
+    console.log('tx hash : ', txHash);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const connect = async () => {
+  try {
+    console.log('START');
+    const result = await ethereum.request({ method: 'eth_requestAccounts' });
+    console.log('RESULT', result?.[0]);
+    //setAccount(result?.[0]);
+    //getBalance();
+  } catch (e) {
+    console.log('ERROR', e);
+  }
+};
 
 export function App(): JSX.Element {
   return (
@@ -41,6 +101,8 @@ export function App(): JSX.Element {
           <Stack.Screen name={'MyBoard'} component={MyBoard} />
         </Stack.Navigator>
       </NavigationContainer>
+      <Button title="connect" onPress={connect} />
+      <Button title="Send transaction" onPress={sendTransaction} />
     </QueryClientProvider>
   );
 }
