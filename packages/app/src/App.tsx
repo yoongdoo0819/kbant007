@@ -21,12 +21,13 @@ import MyBoard from './screens/MyBoard';
 import Web3 from 'web3';
 import Web3Modal from 'web3modal';
 
-import './shim';
-import { ethers } from 'ethers';
 import MetaMaskSDK from '@metamask/sdk';
 import { Linking } from 'react-native';
 import BackgroundTimer from 'react-native-background-timer';
 //import detectEthereumProvider from '@metamask/detect-provider';
+
+import '@ethersproject/shims';
+import { ethers } from 'ethers';
 
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
@@ -44,7 +45,7 @@ const sdk = new MetaMaskSDK({
 
 const ethereum = sdk.getProvider();
 
-// const provider = new ethers.providers.Web3Provider(ethereum);
+const provider = new ethers.providers.Web3Provider(ethereum);
 
 const sendTransaction = async () => {
   const to = '0x0000000000000000000000000000000000000000';
@@ -69,13 +70,22 @@ const sendTransaction = async () => {
   }
 };
 
+const getBalance = async () => {
+  if (!ethereum.selectedAddress) {
+    return;
+  }
+  const bal = await provider.getBalance(ethereum.selectedAddress);
+  console.log(bal);
+  //setBalance(ethers.utils.formatEther(bal));
+};
+
 const connect = async () => {
   try {
-    console.log('START');
+    console.log('START!!!');
     const result = await ethereum.request({ method: 'eth_requestAccounts' });
     console.log('RESULT', result?.[0]);
     //setAccount(result?.[0]);
-    //getBalance();
+    getBalance();
   } catch (e) {
     console.log('ERROR', e);
   }

@@ -1,3 +1,5 @@
+import './shim';
+
 import { Button } from './components/Button/Button';
 import { TextInput } from './components/TextInput/TextInput';
 import { App } from './App';

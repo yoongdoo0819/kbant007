@@ -25,6 +25,7 @@
     "stream-browserify": "^1.0.0"
   },
   "devDependencies": {
+    "@ethersproject/shims": "^5.7.0",
     "@types/react-native": "^0.71.1",
     "react-native-web": "^0.18.12",
     "rn-nodeify": "^10.3.0"
