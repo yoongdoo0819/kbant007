@@ -4,6 +4,7 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
+import com.kakao.sdk.common.util.Utility;
 
 public class MainActivity extends ReactActivity {
 
@@ -23,6 +24,9 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
+    //KakaoSdk.init(this, "565e22698642f18fc794c912f40398da")
+
+
     return new DefaultReactActivityDelegate(
         this,
         getMainComponentName(),

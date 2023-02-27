@@ -29,6 +29,15 @@ import BackgroundTimer from 'react-native-background-timer';
 import '@ethersproject/shims';
 import { ethers } from 'ethers';
 
+import {
+  KakaoOAuthToken,
+  KakaoProfile,
+  getProfile as getKakaoProfile,
+  loginWithKakaoAccount,
+  logout,
+  unlink,
+} from '@react-native-seoul/kakao-login';
+
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
 
@@ -43,55 +52,87 @@ const sdk = new MetaMaskSDK({
   },
 });
 
-const ethereum = sdk.getProvider();
+export function App(): JSX.Element {
+  const [result, setResult] = useState('');
 
-const provider = new ethers.providers.Web3Provider(ethereum);
+  const signInWithKakao = async (): Promise<void> => {
+    console.log('sign in start!');
 
-const sendTransaction = async () => {
-  const to = '0x0000000000000000000000000000000000000000';
-  const transactionParameters = {
-    to, // Required except during contract publications.
-    from: ethereum.selectedAddress, // must match user's active address.
-    value: '0x0000000001', // Only required to send ether to the recipient from the initiating external account.
+    const token: KakaoOAuthToken = await loginWithKakaoAccount();
+    console.log('sign in end');
+
+    console.log('token : ', token);
+    setResult(JSON.stringify(token));
+
+    console.log(result);
   };
 
-  try {
-    // txHash is a hex string
-    // As with any RPC call, it may throw an error
-    const txHash = await ethereum.request({
-      method: 'eth_sendTransaction',
-      params: [transactionParameters],
-    });
+  const signOutWithKakao = async (): Promise<void> => {
+    const message = await logout();
 
-    //setResponse(txHash);
-    console.log('tx hash : ', txHash);
-  } catch (e) {
-    console.log(e);
-  }
-};
+    setResult(message);
+  };
 
-const getBalance = async () => {
-  if (!ethereum.selectedAddress) {
-    return;
-  }
-  const bal = await provider.getBalance(ethereum.selectedAddress);
-  console.log(bal);
-  //setBalance(ethers.utils.formatEther(bal));
-};
+  // const getKakaoProfile = async (): Promise<void> => {
+  //   const profile: KakaoProfile = await getProfile();
 
-const connect = async () => {
-  try {
-    console.log('START!!!');
-    const result = await ethereum.request({ method: 'eth_requestAccounts' });
-    console.log('RESULT', result?.[0]);
-    //setAccount(result?.[0]);
-    getBalance();
-  } catch (e) {
-    console.log('ERROR', e);
-  }
-};
+  //   setResult(JSON.stringify(profile));
+  // };
 
-export function App(): JSX.Element {
+  const unlinkKakao = async (): Promise<void> => {
+    const message = await unlink();
+
+    setResult(message);
+  };
+
+  const ethereum = sdk.getProvider();
+
+  const provider = new ethers.providers.Web3Provider(ethereum);
+
+  const sendTransaction = async () => {
+    const to = '0x0000000000000000000000000000000000000000';
+    const transactionParameters = {
+      to, // Required except during contract publications.
+      from: ethereum.selectedAddress, // must match user's active address.
+      value: '0x0000000001', // Only required to send ether to the recipient from the initiating external account.
+    };
+
+    try {
+      // txHash is a hex string
+      // As with any RPC call, it may throw an error
+      const txHash = await ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters],
+      });
+
+      //setResponse(txHash);
+      console.log('tx hash : ', txHash);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getBalance = async () => {
+    if (!ethereum.selectedAddress) {
+      return;
+    }
+    const bal = await provider.getBalance(ethereum.selectedAddress);
+    console.log(bal);
+    //setBalance(ethers.utils.formatEther(bal));
+  };
+
+  const connect = async () => {
+    try {
+      console.log('START!!!');
+      const result = await ethereum.request({ method: 'eth_requestAccounts' });
+      console.log('RESULT', result?.[0]);
+      //setAccount(result?.[0]);
+      getBalance();
+    } catch (e) {
+      console.log('ERROR', e);
+    }
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
@@ -111,6 +152,8 @@ export function App(): JSX.Element {
           <Stack.Screen name={'MyBoard'} component={MyBoard} />
         </Stack.Navigator>
       </NavigationContainer>
+      <Button title="로그인" onPress={signInWithKakao} />
+      <Button title="로그아웃" onPress={signOutWithKakao} />
       <Button title="connect" onPress={connect} />
       <Button title="Send transaction" onPress={sendTransaction} />
     </QueryClientProvider>
