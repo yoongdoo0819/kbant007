@@ -59,7 +59,7 @@ export function App(): JSX.Element {
     console.log('sign in start!');
 
     const token: KakaoOAuthToken = await loginWithKakaoAccount();
-    console.log('sign in end');
+    console.log('sign in end!');
 
     console.log('token : ', token);
     setResult(JSON.stringify(token));
