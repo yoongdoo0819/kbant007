@@ -56,7 +56,7 @@ export function App(): JSX.Element {
   const [result, setResult] = useState('');
 
   const signInWithKakao = async (): Promise<void> => {
-    console.log('sign in start!');
+    console.log('sign in start! ');
 
     const token: KakaoOAuthToken = await loginWithKakaoAccount();
     console.log('sign in end!');
